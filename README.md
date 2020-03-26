@@ -17,7 +17,7 @@
 |7.     |(more to come)|
 
 ### Images
-!['ERD Image not available'](images/medical_no_show_db_ERD.png)\
+!['ERD Image not available'](images/medical_no_show_db_erd.png)\
 *Database (medical_no_show_db) ERD*
 
 ### Contents
