@@ -16,6 +16,10 @@
 |6.     |Run the notebook "import_data.ipynb", this will load the data, geocode it, and load it into SQL |
 |7.     |(more to come)|
 
+### Images
+!['ERD Image not available'](/images/medical_no_show_db_ERD.png)\
+*Database (medical_no_show_db) ERD*
+
 ### Contents
 | File                        | Description                                                                                     |
 |-----------------------------|-------------------------------------------------------------------------------------------------|
