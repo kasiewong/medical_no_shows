@@ -6,7 +6,7 @@
 DROP TABLE IF EXISTS staging_table;
 
 
-
+DROP TABLE IF EXISTS appointments;
 DROP TABLE IF EXISTS neighborhood;
 
 -- create the tables
@@ -36,3 +36,27 @@ CREATE TABLE "neighborhood" (
     "longitude" float   NULL,
     "latitude" float   NULL
 );
+
+-- appointment table
+CREATE TABLE "appointments" (
+    "appointment_id" int   NOT NULL,
+    "patient_id" bigint   NOT NULL,
+	"gender" varchar NULL,	
+    "scheduled_day" date   NULL,
+    "appointment_day" date   NULL,
+    "patient_age" int   NULL,
+    "neighborhood_id" int   NULL,
+    "scholarship" int   NULL,
+    "hypertension" int   NULL,
+    "diabetes" int   NULL,
+    "alcoholism" int   NULL,
+    "handicap" int   NULL,
+    "no_show" varchar   NULL,
+    CONSTRAINT "pk_appointments" PRIMARY KEY (
+        "appointment_id"
+     )
+);
+
+ALTER TABLE "appointments" ADD CONSTRAINT "fk_appointments_neighborhood_id" FOREIGN KEY("neighborhood_id")
+REFERENCES "neighborhood" ("neighborhood_id");
+
