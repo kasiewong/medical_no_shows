@@ -1,6 +1,6 @@
 # medical_no_shows
 ## by Kasie Wong
-### Assisted Michael Dowlin
+### Assisted by Michael Dowlin
 ## 3/24/20
 
 ### Description
