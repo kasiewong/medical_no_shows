@@ -4,13 +4,20 @@
 
 -- drop tables if they exist
 DROP TABLE IF EXISTS staging_data;
+DROP TABLE IF EXISTS neighborhood_income_staging;
 
-
+DROP TABLE IF EXISTS holiday;
 DROP TABLE IF EXISTS appointments;
 DROP TABLE IF EXISTS neighborhood;
 
 -- create the tables
 
+-- table for median income
+CREATE TABLE neighborhood_income_staging (
+	neighborhood varchar NULL,
+	median_income float NULL
+);
+	
 -- creating holiday table
 CREATE TABLE holiday (
 	holiday_date date NOT NULL,
@@ -22,9 +29,9 @@ CREATE TABLE holiday (
 	
 -- load our 3 known holidays
 INSERT INTO holiday VALUES
-	('2016-05-01', 'May Day'),
-	('2016-05-08', 'Mothers Day'),
+	('2016-05-01', 'Labor Day'),
 	('2016-05-26', 'Chorpus Christi Day');
+	
 
 -- staging table to store the raw data
 CREATE TABLE staging_data (
@@ -51,6 +58,7 @@ CREATE TABLE staging_data (
 CREATE TABLE neighborhood (
     neighborhood_id SERIAL PRIMARY KEY,
     neighborhood varchar   NOT NULL,
+	median_income float NULL,
     longitude float   NULL,
     latitude float   NULL
 );

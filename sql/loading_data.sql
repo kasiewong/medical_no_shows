@@ -27,9 +27,29 @@ ORDER BY neighborhood;
 		 s.no_show
     FROM staging_data s LEFT OUTER JOIN appointments apt
 	  ON s.appointment_id = apt.appointment_id INNER JOIN neighborhood n
-	  ON s.neighborhood = n.neighborhood
+	  ON s.neighborhood = n.neighborhood;
 	  
-	  
+-- update most of the neighborhood incomes
+    WITH nIncome
+	  AS
+	   (
+		  SELECT n.neighborhood_id,
+				 s.median_income
+			FROM neighborhood n INNER JOIN neighborhood_income_staging s
+			  ON n.neighborhood = UPPER(s.neighborhood)
+	   )
+  UPDATE neighborhood
+     SET median_income = ni.median_income
+    FROM nIncome ni
+   WHERE neighborhood.neighborhood_id = ni.neighborhood_id;
+   
+  --hard code the few that don't match	  
+  UPDATE neighborhood SET median_income = 755 WHERE neighborhood = 'ANTÔNIO HONÓRIO';
+  UPDATE neighborhood SET median_income = 1500 WHERE neighborhood = 'JARDIM CAMBURI';
+  UPDATE neighborhood SET median_income = 510 WHERE neighborhood = 'JOANA D´ARC';
+  UPDATE neighborhood SET median_income = 1100 WHERE neighborhood = 'MORADA DE CAMBURI';
+  UPDATE neighborhood SET median_income = 800 WHERE neighborhood = 'PONTAL DE CAMBURI';
+  UPDATE neighborhood SET median_income = 510 WHERE neighborhood = 'SÃO CRISTÓVÃO';
   
 
 	
