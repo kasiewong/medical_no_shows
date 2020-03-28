@@ -3,7 +3,7 @@
 -- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
 -- drop tables if they exist
-DROP TABLE IF EXISTS staging_table;
+DROP TABLE IF EXISTS staging_data;
 
 
 DROP TABLE IF EXISTS appointments;
@@ -11,55 +11,70 @@ DROP TABLE IF EXISTS neighborhood;
 
 -- create the tables
 
+-- creating holiday table
+CREATE TABLE holiday (
+	holiday_date date NOT NULL,
+	holiday varchar,
+	CONSTRAINT "pk_holiday" PRIMARY KEY (
+        holiday_date
+     )	
+	);
+	
+-- load our 3 known holidays
+INSERT INTO holiday VALUES
+	('2016-05-01', 'May Day'),
+	('2016-05-08', 'Mothers Day'),
+	('2016-05-26', 'Chorpus Christi Day');
+
 -- staging table to store the raw data
-CREATE TABLE "staging_table" (
-    "PatientID" bigint   NOT NULL,
-    "AppointmentID" int   NULL,
-	"Gender" varchar NULL,
-    "ScheduledDay" date   NULL,
-    "AppointmentDay" date   NULL,
-    "Age" int   NULL,
-    "Neighborhood" varchar   NULL,
-    "WelfareAssistance" int   NULL,
-    "Hypertension" int   NULL,
-    "Diabetes" int   NULL,
-    "Alcoholism" int   NULL,
-    "Handicap" int   NULL,
-	"SMS_received" int NULL,
-    "No-show" varchar   NULL,
-	"AppointmentDayofWeek" varchar NULL,
-	"AdvanceBookingDays" int NULL,
-	"SameDayAppt" int null
+CREATE TABLE staging_data (
+    patient_id bigint   NOT NULL,
+    appointment_id int   NULL,
+	gender varchar NULL,
+    scheduled_day date   NULL,
+    appointment_day date   NULL,
+    age int   NULL,
+    neighborhood varchar   NULL,
+    welfare_assistance int   NULL,
+    hypertension int   NULL,
+    diabetes int NULL,
+    alcoholism int NULL,
+    handicap int   NULL,
+	sms_received int NULL,
+    no_show varchar NULL,
+	appointment_day_of_week varchar NULL,
+	advance_booking_days int NULL,
+	same_day_appt int Null
 );
 
 -- neighborhood table to store the 
-CREATE TABLE "neighborhood" (
-    "NeighborhoodID" SERIAL PRIMARY KEY,
-    "Neighborhood" varchar   NOT NULL,
-    "Longitude" float   NULL,
-    "Latitude" float   NULL
+CREATE TABLE neighborhood (
+    neighborhood_id SERIAL PRIMARY KEY,
+    neighborhood varchar   NOT NULL,
+    longitude float   NULL,
+    latitude float   NULL
 );
 
 -- appointment table
-CREATE TABLE "appointments" (
-    "AppointmentID" int   NOT NULL,
-    "PatientID" bigint   NOT NULL,
-	"Gender" varchar NULL,	
-    "ScheduledDay" date   NULL,
-    "AppointmentDay" date   NULL,
-    "Age" int   NULL,
-    "NeighborhoodID" int   NULL,
-    "WelfareAssistance" int   NULL,
-    "Hypertension" int   NULL,
-    "Diabetes" int   NULL,
-    "Alcoholism" int   NULL,
-    "Handicap" int   NULL,
-    "No-show" varchar   NULL,
+CREATE TABLE appointments (
+    appointment_id int   NOT NULL,
+    patient_id bigint   NOT NULL,
+	gender varchar NULL,	
+    scheduled_day date   NULL,
+    appointment_day date   NULL,
+    age int   NULL,
+    neighborhood_id int   NULL,
+    welfare_assistance int   NULL,
+    hypertension int   NULL,
+    diabetes int   NULL,
+    alcoholism int   NULL,
+    handicap int   NULL,
+    no_show varchar   NULL,
     CONSTRAINT "pk_appointments" PRIMARY KEY (
-        "AppointmentID"
+        appointment_id
      )
 );
 
-ALTER TABLE "appointments" ADD CONSTRAINT "fk_appointments_NeighborhoodID" FOREIGN KEY("NeighborhoodID")
-REFERENCES "neighborhood" ("NeighborhoodID");
+ALTER TABLE appointments ADD CONSTRAINT "fk_appointments_neighborhood_id" FOREIGN KEY(neighborhood_id)
+REFERENCES neighborhood (neighborhood_id);
 
