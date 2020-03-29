@@ -10,9 +10,19 @@ DROP VIEW IF EXISTS medical_noshow_data;
 */
 
 CREATE VIEW medical_noshow_data
-AS 
+AS
+
+    WITH patient_appointment_count
+	  AS
+	   (
+		  SELECT a.patient_id,
+				 COUNT(*) AS appointment_total
+			FROM appointments a		   
+		GROUP BY a.patient_id		 
+	   )
   SELECT apt.appointment_id,
   		 apt.patient_id,
+		 CASE WHEN pac.appointment_total = 1 THEN 0 ELSE 1 END AS repeat_patient_yn,
 		 CASE WHEN apt.gender = 'M' THEN 1 ELSE 0 END AS gender_yn,
 		 apt.scheduled_day,
 		 apt.appointment_day,
@@ -20,6 +30,13 @@ AS
 		 CASE WHEN apt.appointment_day - apt.scheduled_day = 0 THEN 1 ELSE 0 END AS same_day_appt_yn,
 		 CASE WHEN apt.appointment_day - apt.scheduled_day > 0 AND apt.appointment_day - apt.scheduled_day <= 7 THEN 1 ELSE 0 END AS within_week_appt_yn,
 		 CASE WHEN apt.appointment_day - apt.scheduled_day > 7 THEN 1 ELSE 0 END AS advanced_appt_yn,
+		 EXTRACT(DOW FROM apt.appointment_day) AS day_of_week,
+		 CASE WHEN EXTRACT(DOW FROM apt.appointment_day) = 1 THEN 1 ELSE 0 END AS monday_yn,
+		 CASE WHEN EXTRACT(DOW FROM apt.appointment_day) = 2 THEN 1 ELSE 0 END AS tuesday_yn,		 
+		 CASE WHEN EXTRACT(DOW FROM apt.appointment_day) = 3 THEN 1 ELSE 0 END AS wednesday_yn,
+		 CASE WHEN EXTRACT(DOW FROM apt.appointment_day) = 4 THEN 1 ELSE 0 END AS thursday_yn,
+		 CASE WHEN EXTRACT(DOW FROM apt.appointment_day) = 5 THEN 1 ELSE 0 END AS friday_yn,
+		 CASE WHEN EXTRACT(DOW FROM apt.appointment_day) = 6 THEN 1 ELSE 0 END AS saturday_yn,
 		 -- income groups for neighborhood
 		 CASE WHEN n.median_income <511 THEN 1 ELSE 0 END AS neighborhood_income_lower_yn,
 		 CASE WHEN n.median_income >= 511 AND n.median_income <= 900 THEN 1 ELSE 0 END AS neighborhood_income_middle_yn,
@@ -41,5 +58,6 @@ AS
 		 CASE WHEN no_show = 'Yes' THEN 1 ELSE 0 END AS no_show_yn
     FROM appointments apt LEFT OUTER JOIN holiday h
 	  ON apt.appointment_day = h.holiday_date + 1 INNER JOIN neighborhood n
-	  ON apt.neighborhood_id = n.neighborhood_id
+	  ON apt.neighborhood_id = n.neighborhood_id INNER JOIN patient_appointment_count pac
+	  ON apt.patient_id = pac.patient_id
 	  
