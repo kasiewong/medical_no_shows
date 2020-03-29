@@ -30,7 +30,7 @@ AS
 		 CASE WHEN apt.age < 18 THEN 1 ELSE 0 END AS child_yn,
 		 CASE WHEN apt.age >= 18 AND apt.age < 30 THEN 1 ELSE 0 END AS young_adult_yn,
 		 CASE WHEN apt.age >= 30 AND apt.age < 60 THEN 1 ELSE 0 END AS adult_yn,
-		 CASE WHEN apt.age >= 50 THEN 1 ELSE 0 END AS senior_yn,
+		 CASE WHEN apt.age >= 60 THEN 1 ELSE 0 END AS senior_yn,
 		 apt.welfare_assistance,
 		 apt.hypertension,
 		 apt.diabetes,
