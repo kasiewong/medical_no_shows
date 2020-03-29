@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS staging_data;
 DROP TABLE IF EXISTS neighborhood_income_staging;
 
 DROP TABLE IF EXISTS holiday;
-DROP TABLE IF EXISTS appointments;
+DROP TABLE IF EXISTS appointments CASCADE;
 DROP TABLE IF EXISTS neighborhood;
 
 -- create the tables
@@ -77,6 +77,7 @@ CREATE TABLE appointments (
     diabetes int   NULL,
     alcoholism int   NULL,
     handicap int   NULL,
+	sms_received int NULL,
     no_show varchar   NULL,
     CONSTRAINT "pk_appointments" PRIMARY KEY (
         appointment_id

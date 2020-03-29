@@ -54,6 +54,7 @@ AS
 		 apt.alcoholism,
 		 --handicap bins here
 		 CASE WHEN apt.handicap = 0 THEN 0 ELSE 1 END AS handicap_yn,
+		 apt.sms_received,
 		 -- what we will be solving for
 		 CASE WHEN no_show = 'Yes' THEN 1 ELSE 0 END AS no_show_yn
     FROM appointments apt LEFT OUTER JOIN holiday h

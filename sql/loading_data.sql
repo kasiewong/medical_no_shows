@@ -24,6 +24,7 @@ ORDER BY neighborhood;
 		 s.diabetes,
 		 s.alcoholism,
 		 s.handicap,
+		 s.sms_received,
 		 s.no_show
     FROM staging_data s LEFT OUTER JOIN appointments apt
 	  ON s.appointment_id = apt.appointment_id INNER JOIN neighborhood n
