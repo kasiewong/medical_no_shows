@@ -1,5 +1,6 @@
 
 DROP VIEW IF EXISTS medical_noshow_data;
+DROP VIEW IF EXISTS medical_noshow_tableau;
 
 /*
 
@@ -54,6 +55,41 @@ AS
 		 apt.sms_received,
 		 -- what we will be solving for
 		 CASE WHEN no_show = 'Yes' THEN 1 ELSE 0 END AS no_show_yn
+    FROM appointments apt LEFT OUTER JOIN holiday h
+	  ON apt.appointment_day = h.holiday_date + 1 INNER JOIN neighborhood n
+	  ON apt.neighborhood_id = n.neighborhood_id INNER JOIN patient_appointment_count pac
+	  ON apt.patient_id = pac.patient_id;
+	  
+CREATE VIEW medical_noshow_tableau
+AS
+
+    WITH patient_appointment_count
+	  AS
+	   (
+		  SELECT a.patient_id,
+				 COUNT(*) AS appointment_total
+			FROM appointments a		   
+		GROUP BY a.patient_id		 
+	   )
+  SELECT apt.appointment_id,
+  		 apt.patient_id,
+		 CASE WHEN pac.appointment_total = 1 THEN 0 ELSE 1 END AS repeat_patient_yn,
+		 apt.neighborhood_id,
+		 n.neighborhood,
+		 n.longitude,
+		 n.latitude,
+		 n.median_income,
+		 apt.gender,
+		 apt.scheduled_day,
+		 apt.appointment_day,
+		 apt.appointment_day - apt.scheduled_day AS time_between_sch_appt,		 
+		 apt.age,
+		 apt.welfare_assistance,
+		 apt.hypertension,
+		 apt.diabetes,
+		 apt.alcoholism,
+		 apt.handicap,
+		 apt.no_show
     FROM appointments apt LEFT OUTER JOIN holiday h
 	  ON apt.appointment_day = h.holiday_date + 1 INNER JOIN neighborhood n
 	  ON apt.neighborhood_id = n.neighborhood_id INNER JOIN patient_appointment_count pac
