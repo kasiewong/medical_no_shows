@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Demo</title>
+</head>
+
+<body>
+    <h1>Enter parameters:</h1>
+    <form method=post enctype=multipart/form-data>
+        <label for="Gender">Gender (Male/Female):</label>
+        <input type="text" id="Gender" name="Gender"><br>
+        <label for="Married">Married (Yes/No):</label>
+        <input type="text" id="Married" name="Married"><br>
+        <label for="Dependents">Dependents(0/1/2/3+):</label>
+        <input type="text" id="Dependents" name="Dependents"><br>
+        <label for="Education">Education (Graduate/Not Graduate):</label>
+        <input type="text" id="Education" name="Education"><br>
+        <label for="Self_Employed">Self-Employed (Yes/No):</label>
+        <input type="text" id="Self_Employed" name="Self_Employed"><br>
+        <label for="ApplicantIncome">Applicant Income (mean: 5403 | max: 81K):</label>
+        <input type="text" id="ApplicantIncome" name="ApplicantIncome"><br>
+        <label for="CoapplicantIncome">Coapplicant Income (mean: 1621 | max: 42K):</label>
+        <input type="text" id="CoapplicantIncome" name="CoapplicantIncome"><br>
+        <label for="LoanAmount">Loan Amount:</label>
+        <input type="text" id="LoanAmount" name="LoanAmount"><br>
+        <label for="Loan_Amount_Term">Loan Term (12-360):</label>
+        <input type="text" id="Loan_Amount_Term" name="Loan_Amount_Term"><br>
+        <label for="Credit_History">Credit History (Yes/No):</label>
+        <input type="text" id="Credit_History" name="Credit_History"><br>
+        <label for="Property_Area">Property Area (Urban/Semiurban/Rural):</label>
+        <input type="text" id="Property_Area" name="Property_Area"><br>
+
+        <input type=submit value=Submit>
+    </form>
+
+    <h3>{{ result }}</h3>
+</body>
+
+</html>
