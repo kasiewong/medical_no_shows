@@ -17,7 +17,7 @@
 |7.     |(more to come)|
 
 ### Dashboard Link
-https://public.tableau.com/profile/michael8262#!/vizhome/Brazil_Medical_NoShow_Analysis_KW_MD/Dashboard1?publish=yes
+[Tableau Dashboard Link](https://public.tableau.com/profile/michael8262#!/vizhome/Brazil_Medical_NoShow_Analysis_KW_MD/Dashboard1?publish=yes)
 
 ### Images
 !['ERD Image not available'](images/medical_no_show_db_erd.png)\
