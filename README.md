@@ -16,6 +16,9 @@
 |6.     |Run the notebook "import_data.ipynb", this will load the data, geocode it, and load it into SQL |
 |7.     |(more to come)|
 
+### Dashboard Link
+https://public.tableau.com/profile/michael8262#!/vizhome/Brazil_Medical_NoShow_Analysis_KW_MD/Dashboard1?publish=yes
+
 ### Images
 !['ERD Image not available'](images/medical_no_show_db_erd.png)\
 *Database (medical_no_show_db) ERD*
